@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import br.com.personalfinancetabajara.model.Usuario;
 import br.com.personalfinancetabajara.util.AppUtil;
 
-public class UsuarioDAO {
+public class UsuarioDAO extends BaseDAO {
 
 	private static  UsuarioDAO instancia;
-	private Connection conn;
+	
 	
 	
 	public static final UsuarioDAO getInstancia(Connection conn) 
@@ -29,27 +29,7 @@ public class UsuarioDAO {
 	}
 	
 
-	// AutoIncrement
-	private Long nextid(Connection conn) throws SQLException {
-
-		// Montando o comando
-		String comandoSQL = "select nvl(max(id_user),0) +1 from usuario";
-		// Transporte para o bd
-		PreparedStatement comando = conn.prepareStatement(comandoSQL);
-		// Executar o comando
-		ResultSet resultado = comando.executeQuery();
-		// Colocando o resultado no registro
-
-		Long nextid = null;
-		if (resultado.next()) {
-
-			nextid = resultado.getLong(1);
-
-		}
-
-		return nextid;
-	}
-
+	
 	// Insert No banco
 	public void Salvar(Usuario user) throws SQLException, NoSuchAlgorithmException {
 		// Montando o comando
@@ -57,7 +37,7 @@ public class UsuarioDAO {
 		// Transporte para bd
 		PreparedStatement comando = conn.prepareStatement(comandoSQL);
 		// Prencher os valores
-		comando.setLong(1, nextid(conn));
+		comando.setLong(1, nextid(conn,"usuario","id_user"));
 		comando.setString(2, user.getUsuario());
 		comando.setString(3, user.getEmail());
 		comando.setString(4, AppUtil.generateMD5(user.getSenha()));
@@ -103,7 +83,7 @@ public class UsuarioDAO {
 		// set novos valores
 		comando.setString(1, user.getEmail());
 		comando.setString(2,AppUtil.generateMD5(user.getSenha()));
-		comando.setLong(3, user.getId_user());
+		comando.setLong(3, user.getId());
 		// executar o comando
 		comando.executeUpdate();
 		//

@@ -3,6 +3,10 @@ package br.com.personalfinancetabajara.util;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AppUtil {
 	
@@ -22,4 +26,36 @@ public class AppUtil {
 		return hashtext;
 	}
 
+	
+	//DataSQL
+	
+	public static java.sql.Date dateUtilToDateSql(Date data) 
+	{
+		return new java.sql.Date(data.getTime());
+	}
+	
+	public static Date strDateToDate(String data) throws ParseException{
+		
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataretorno = df.parse(data);
+		
+		
+		
+		return dataretorno;
+		
+	}
+	
+	
+	public static String dateToStr(Date data) {
+		
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		String dataretorno = df.format(data);
+		
+		return dataretorno;
+		
+		
+	}
+	
+	
+	
 }

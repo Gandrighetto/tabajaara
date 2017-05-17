@@ -1,8 +1,8 @@
 package br.com.personalfinancetabajara.model;
 
-public class Usuario {
+public class Usuario extends EntidadeBase {
 	
-	private long id_user;
+	
 	private String usuario;
 	private String email;
 	private String senha;
@@ -12,7 +12,7 @@ public class Usuario {
 	//Construtor
 	public Usuario(long id_user, String usuario, String email, String senha, String nome) {
 		super();
-		this.id_user = id_user;
+		setId(id_user);
 		this.usuario = usuario;
 		this.email = email;
 		this.senha = senha;
@@ -33,13 +33,6 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
     //Get e set
-	public long getId_user() {
-		return id_user;
-	}
-
-	public void setId_user(long id_user) {
-		this.id_user = id_user;
-	}
 
 	public String getUsuario() {
 		return usuario;
@@ -73,11 +66,30 @@ public class Usuario {
 		this.nome = nome;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		
+		
+		Usuario other = (Usuario) obj;
+		if (other.getUsuario().equals(this.getUsuario())) {
+			return true;
+			
+			
+			
+		}
+		
+		
+		return false;
+	}
+	
+	
+	
+	
 	
 	//toString
 	@Override
 	public String toString() {
-		return "Usuario [id_user=" + id_user + ", usuario=" + usuario + ", email=" + email + ", senha=" + senha
+		return "Usuario [usuario=" + usuario + ", email=" + email + ", senha=" + senha
 				+ ", nome=" + nome + "]";
 	}
 	
